@@ -1,5 +1,5 @@
 package Database_Project;
-import java.util.LinkedList;
+
 
 public class Database<E>{
 private Node head;
@@ -30,28 +30,11 @@ private Node head;
         
         
     
-    public void delete(E data){
-    Node current=head;
-    Node prev = null;
-    
-    while(current!=null && !current.index.equals(data)){
-        prev = current;
-        current = current.nextNode;
-    }
-    if(current!=null){
-        
-    }    
-    
-    
-    }
-    
-    public void clear(){
+       public void clear(){
        head=null;
     }
 
-    //void insert(double data, String datatypeFromUser, String index) {
-      //  throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    //}
+    
     
     public void display(){
         Node current = head;
