@@ -56,6 +56,31 @@ public class MyLinkedList<E>{
         throw new IndexOutOfBoundsException("Index out of bounds");
     }
     
+    //method to retrieve index of linkedList from given data
+    public int indexOf(String data){
+        Node current = head;
+        int index=0;
+        while(current!=null){
+            if(current.data.equals(data)){
+                return index;
+            }
+            current = current.next;
+            index++;
+        }
+        return -1;
+    }
+    
+    public int getDataFromIndex(String data){
+        int index = indexOf(data);
+        if(index != -1){
+            System.out.println("Index of '" + data + "': " + index);
+        }else{
+            
+            System.out.println("'" + data + "' not found in the linked list.");
+        }
+        return index;
+    }
+    
    
             
         
@@ -110,12 +135,12 @@ public class MyLinkedList<E>{
         
     }
     
-    public Node retrive(E data){
+    public E retrive(String data){
         
         Node current = head;
            while(current!=null){
-               if(current==data){
-                   return current;
+               if(current.data.equals(data)){
+                   return (E) current.data;
                }
                current=current.next;
            }

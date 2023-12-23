@@ -11,6 +11,7 @@ public class TestDatabase{
        String datatype;
        String datatypeFromUser;
        boolean o = true;
+       Database<Object> stringDB = new Database<>();
        
        
        while(o){
@@ -35,8 +36,8 @@ public class TestDatabase{
                     String data = input.nextLine();
                     System.out.println("Please enter the index: ");
                     String index = input.nextLine();
-                    Database<String> stringDB = new Database<>();
-                    stringDB.insert(data, datatypeFromUser,index);
+                  //  Database<String> stringDB = new Database<>();
+                    stringDB.insert(index, datatypeFromUser,data);
                     System.out.println("[Database] Inserting...");
                     System.out.println("[Database] Done!");
                 }
@@ -47,8 +48,8 @@ public class TestDatabase{
                     input.nextLine();
                     System.out.println("Please enter the index: ");
                     String index = input.nextLine();
-                    Database<Double> stringDB = new Database<>();
-                    stringDB.insert(data, datatypeFromUser,index);
+                 //   Database<Double> stringDB = new Database<>();
+                    stringDB.insert(index, datatypeFromUser,data);
                     
                     System.out.println("[Database] Inserting...");
                     System.out.println("[Database] Done!");
@@ -60,8 +61,9 @@ public class TestDatabase{
                     input.nextLine();
                     System.out.println("Please enter the index: ");
                     String index = input.nextLine();
-                    Database<Character> stringDB = new Database<>();
-                    stringDB.insert(data, datatypeFromUser,index);
+               //     Database<Character> stringDB = new Database<>();
+                    stringDB.insert(index, datatypeFromUser,data);
+                    
                     System.out.println("[Database] Inserting...");
                     System.out.println("[Database] Done!");
                 }
@@ -72,18 +74,30 @@ public class TestDatabase{
                 
         }
         else if(command.equals("get")){
-             
+           // Database StringDB = new Database();
+             System.out.println("\nPlease enter the index to retrieve data: ");
+             String retrieveIndex = input.nextLine();
+           Object result = stringDB.get(retrieveIndex);
+              if (result != null) {
+                System.out.println("Data for identifier '" + retrieveIndex + "': " + result);
+            } else {
+                System.out.println("No data found for identifier '" + retrieveIndex + "'");
+      
+        }     
               
+        }else if(command.equals("display")){
+            stringDB.display();
+            o =false;
+        }       
               
-              
-        }
+        
                 
                 
                 
                 
           
         
-       }
+       
         
         
         
@@ -100,3 +114,5 @@ public class TestDatabase{
                 
         }
     }
+}
+    
