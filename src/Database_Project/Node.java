@@ -14,6 +14,14 @@ public class Node<E> {
     E  value;
     E type;
     Node nextNode;
+//<<<<<<< Nadhea
+    E data;
+    
+    public Node(E data){
+        this.data =data;
+    }
+=======
+//>>>>>>> main
     
     public Node(String indexFromUser, E typeFromUser, E valueFromUser ){
     this.index = indexFromUser;
