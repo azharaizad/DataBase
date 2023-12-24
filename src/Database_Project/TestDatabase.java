@@ -15,6 +15,7 @@ public class TestDatabase{
        
        
        while(o){
+           System.out.println("\n");
         System.out.println("My Simple Database Engine");
         System.out.println("Please Enter Command");
         System.out.println("- insert: Insert new data");
@@ -75,19 +76,32 @@ public class TestDatabase{
         }
         else if(command.equals("get")){
            // Database StringDB = new Database();
-             System.out.println("\nPlease enter the index to retrieve data: ");
+             System.out.print("\nPlease enter the index to retrieve data: ");
              String retrieveIndex = input.nextLine();
            Object result = stringDB.get(retrieveIndex);
               if (result != null) {
-                System.out.println("Data for identifier '" + retrieveIndex + "': " + result);
+                System.out.println("Data for index '" + retrieveIndex + "' : " + result);
             } else {
-                System.out.println("No data found for identifier '" + retrieveIndex + "'");
+                System.out.println("No data found for index '" + retrieveIndex + "'");
       
         }     
               
-        }else if(command.equals("display")){
+        }else if(command.equals("clear")){
+            stringDB.clear();
+            System.out.println("\nClear all the data stored");
+        
+       }else if(command.equals("delete")){
+            System.out.print("\nPlease enter the index to delete data : ");
+            String deleteIndex = input.nextLine();
+            stringDB.delete(deleteIndex);
+            System.out.println("\nData Stored after delete:");
             stringDB.display();
-            o =false;
+       
+        
+        
+       }else if(command.equals("display")){
+            stringDB.display();
+            
         }       
               
         

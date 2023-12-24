@@ -27,6 +27,19 @@ private Node head;
         }
         return null;
     }
+    
+    public void delete(String data){
+        Node current = head;
+        while(current!= null){
+            if(current.nextNode.index.equals(data)){
+                
+                current.nextNode =current.nextNode.nextNode;
+                System.out.println("Succesfully deleted data");
+            }
+            current = current.nextNode;
+        }
+        
+    }
         
         
     
@@ -38,7 +51,7 @@ private Node head;
     
     public void display(){
         Node current = head;
-        System.out.println("Display all data");
+        System.out.println("\nDisplay all data");
         System.out.println("+---------------+--------------+---------------+");
         System.out.println("|     INDEX     |     TYPE     |     VALUE     |");
         System.out.println("+---------------+--------------+---------------+");
