@@ -1,5 +1,6 @@
 package Database_Project;
 
+//<<<<<<< Nadhea
 import java.util.Scanner;
 
 public class MyLinkedList<E>{
@@ -179,4 +180,6 @@ public class MyLinkedList<E>{
 //        myLinkedList.clear();
 //        myLinkedList.display();
 //    }
+=======
+
     }

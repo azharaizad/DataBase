@@ -1,4 +1,5 @@
 package Database_Project;
+//<<<<<<< Nadhea
 import java.util.Date;
 
 public class UserActivity<E>{
@@ -34,3 +35,10 @@ public class UserActivity<E>{
         
     }
 }
+=======
+import java.util.LinkedList;
+
+public class UserActivity{
+    
+}
+//>>>>>>> main
