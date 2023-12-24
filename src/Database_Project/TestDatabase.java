@@ -12,7 +12,7 @@ public class TestDatabase{
        String datatype;
        String datatypeFromUser;
        boolean o = true;
-       Database<Object> stringDB = new Database<>();
+      Database<Object> stringDB = new Database<>();
       Database<UserActivity> userActivity = new Database<>();
       
       
