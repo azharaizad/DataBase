@@ -14,6 +14,11 @@ public class Node<E> {
     E  value;
     E type;
     Node nextNode;
+    E data;
+    
+    public Node(E data){
+        this.data =data;
+    }
     
     public Node(String indexFromUser, E typeFromUser, E valueFromUser ){
     this.index = indexFromUser;

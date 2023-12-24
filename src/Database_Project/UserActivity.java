@@ -1,24 +1,26 @@
 package Database_Project;
 import java.util.Date;
 
-public class UserActivity{
+public class UserActivity<E>{
     private String typeCommand;
-    private String dataInserted;
+    private E dataInserted;
     private String dataDisplayed;
     private String dataRetrieved;
     private String dataDeleted;
     private String dataCleared;
+    private String message;
     private Date dateActivity;
     
-    public UserActivity(String typeCommand, String dataInserted, String dataDisplayed, String dataRetrieved, String dataDeleted, String dataCleared, Date dateActivity){
+    public UserActivity(String typeCommand, E dataInserted, String message, Date dateActivity){
         this.typeCommand = typeCommand;
         this.dataInserted = dataInserted;
-        this.dataDisplayed = dataDisplayed;
-        this.dataRetrieved = dataRetrieved;
-        this.dataDeleted = dataDeleted;
-        this.dataCleared = dataCleared;
+        this.message = message;
+        
         this.dateActivity = dateActivity;
         
+    }
+    public Date getDateCreated(){
+        return dateActivity;
     }
     
     public void display(){
