@@ -2,43 +2,24 @@ package Database_Project;
 //<<<<<<< Nadhea
 import java.util.Date;
 
-public class UserActivity<E>{
-    private String typeCommand;
-    private E dataInserted;
-    private String dataDisplayed;
-    private String dataRetrieved;
-    private String dataDeleted;
-    private String dataCleared;
-    private String message;
+public class UserActivity{
+    private String typeActivity;
+    private String data;
+    private String status;
     private Date dateActivity;
     
-    public UserActivity(String typeCommand, E dataInserted, String message, Date dateActivity){
-        this.typeCommand = typeCommand;
-        this.dataInserted = dataInserted;
-        this.message = message;
-        
-        this.dateActivity = dateActivity;
-        
-    }
-    public Date getDateCreated(){
-        return dateActivity;
+    public UserActivity(String typeActivity, String data, String status){
+        this.typeActivity = typeActivity;
+        this.data = data;
+        this.status = status;
+        dateActivity = new Date();
     }
     
     public void display(){
         System.out.println("User Activity: ");
-        System.out.println("Type of Command: " + typeCommand + " ("+dateActivity+")");
-        System.out.println("Data Inserted: " + dataInserted );
-        System.out.println("Data Retrieved: " + dataRetrieved );
-        System.out.println("Data Displayed: " + dataDisplayed );
-        System.out.println("Data Deleted: " + dataDeleted );
-        System.out.println("Data Cleared: " + dataCleared );
-        
+        System.out.println("Type of Command: " + typeActivity + " ("+dateActivity+")");
+        System.out.println("Data Inserted: " + data );
+        System.out.println("Status: "+status);
+        System.out.println();
     }
 }
-=======
-import java.util.LinkedList;
-
-public class UserActivity{
-    
-}
-//>>>>>>> main

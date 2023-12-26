@@ -1,138 +1,139 @@
-//<<<<<<< Nadhea
+
 package Database_Project;
 
-import java.util.Date;
-
-
 public class Database<E>{
-private Node head;
-
-//MyLinkedList<Object> UserActivity = new MyLinkedList<>();
-
-  public Database() {
-        this.head = null;
+    MyLinkedList<MyLinkedList<E>> IndexList;
+    MyLinkedList<UserActivity> listUserActivity;
+    
+    public Database(){
+         IndexList = new MyLinkedList<>("MyLinkedList");
+         IndexList.ListName = "IndexList";
+         listUserActivity = new MyLinkedList<>("UserActivity");
+         listUserActivity.ListName = "List of UserActivity";
     }
+    
   
-    
-      
-    public void insert(String index,String datatype,E data){
-     Node newNode = new Node(index,datatype,data);
-     newNode.nextNode =head;
-     head= newNode;
-   //  UserActivity.add(new UserActivity("insert",data,"User succesfully inserted data",date));
+    public void insert(MyLinkedList<E> Index, E element){
+        
+        if(elementExist(Index)!=null){
+            IndexList.getNode(elementExist(Index)).element.add(element);
+            listUserActivity.add(new UserActivity("Insert element to "+Index.toString(),element.toString(),"Success"));
+        }
+        else{
+            IndexList.add(Index);
+            listUserActivity.add(new UserActivity("Insert new index which is "+Index.toString(),null,"Success"));
+            
+            IndexList.getNode(Index).element.add(element);
+            listUserActivity.add(new UserActivity("Insert element to "+Index.toString(),element.toString(),"Success"));
+        }        
     }
     
-     public void insert(UserActivity data) {
-        Node newNode = new Node(data);
-        newNode.nextNode = head;
-        head = newNode;
+    public void insertMany(MyLinkedList<E> Index, E[]element){
+        if(elementExist(Index)!=null){
+            IndexList.getNode(elementExist(Index)).element.addMany(element);
+            listUserActivity.add(new UserActivity("Insert element to "+Index.toString(),null,"Success"));
+        }
+        else{
+            IndexList.add(Index);
+            listUserActivity.add(new UserActivity("Insert new index which is "+Index.toString(),null,"Success"));
+            
+            IndexList.getNode(Index).element.addMany(element);
+            listUserActivity.add(new UserActivity("Insert element to "+Index.toString(),null,"Success"));
+        }  
+    }
+    
+    public void deleteData(MyLinkedList<E> Index, E element){
+        
+        if(elementExist(Index)!=null){
+            if(IndexList.getNode(elementExist(Index)).element.elementExist(element)){
+                IndexList.getNode(elementExist(Index)).element.remove(element);
+                listUserActivity.add(new UserActivity("Delete data "+Index.toString(),element.toString(),"Success"));
+            }
+            else{
+                System.out.println("Element doesn't exist");
+                listUserActivity.add(new UserActivity("Delete index "+Index.toString(),element.toString(),"Fail. Element doesn't exist."));
+            }   
+        }
+        else{
+            System.out.println("Index doesn't exist");
+            listUserActivity.add(new UserActivity("Delete index "+Index.toString(),null,"Fail. Index doesn't exist"));
+        }
+    }
+    
+    public void deleteIndex(MyLinkedList<E> Index){
+        if(elementExist(Index)!=null){
+            IndexList.remove(elementExist(Index));
+            listUserActivity.add(new UserActivity("Delete index "+Index.toString(),null,"Success"));
+        }
+        else{
+            System.out.println("Index doesn't exist");
+            listUserActivity.add(new UserActivity("Index not found",null,"Fail. Index doesn't exist"));
+        }
     }
 
-    
-    
-    
-    public E get(String data){
-        Node current = head;
-        while(current!= null){
-            if(current.index.equals(data)){
-           //    UserActivity.add(new UserActivity("get",current.value,"User succesfully get the data",date));
-               return (E) current.value;
-               
+    public void get(MyLinkedList<E> Index, E element){
+        if(IndexList.elementExist(Index)){
+            //display the whole element in the specific index
+            System.out.print("Index: "+Index.toString()+" > Value: ");
+            IndexList.getNode(Index).element.displayInLinkedList();
+            listUserActivity.add(new UserActivity("Get Index "+IndexList.toString(),null,"Success"));
+            if(element!=null){
+                if(IndexList.getNode(Index).element.elementExist(element)){
+                    System.out.println("Index: "+Index.toString()+" > Value: "+IndexList.getNode(Index).element.getNode(element).element);
+                    listUserActivity.add(new UserActivity("Get data from "+IndexList.toString(),element.toString(),"Success"));
+                }
+                else{
+                    System.out.println("Element not found");
+                    listUserActivity.add(new UserActivity("Get data from "+IndexList.toString(),element.toString(),"Fail. Element doesn't exist."));
+                }  
             }
-            current = current.nextNode;
         }
+        else{
+            System.out.println("Index not found");
+            listUserActivity.add(new UserActivity("Get Index "+IndexList.toString(),null,"Fail. Index doesn't exist"));
+        }
+    }
+    
+    public void display(){
+            System.out.println("Display all data");
+            //System.out.println("+---------------+--------------+---------------+");
+            System.out.printf("%-13s %-13s %-13s%n","INDEX","TYPE","VALUE");
+            //System.out.println("+---------------+--------------+---------------+");
         
+        for (int i = 0; i < IndexList.size; i++) {
+            System.out.printf("%-13s %-13s %1s",IndexList.getElement(i).ListName,
+                    IndexList.getElement(i).dataType,"");
+            IndexList.getElement(i).displayInLinkedList();
+            System.out.println();
+        }
+    }
+    
+    public void viewHistory(){
+        for (int i = 0; i < listUserActivity.size; i++) {
+            listUserActivity.getElement(i).display();
+        }
+    }
+    
+    public MyLinkedList<E> ReturnIndexElement(String indexName){
+        for (int i = 0; i < IndexList.size; i++) {
+            if(IndexList.getElement(i).ListName.equalsIgnoreCase(indexName))
+                return IndexList.getElement(i);
+        }
         return null;
     }
     
-    public void delete(String data){
-    Node current = head;
-    Node prev = null;
-
-    while (current != null && (current.index == null || !current.index.equals(data))) {
-        prev = current;
-        current = current.nextNode;
-    }
-
-    if (current != null) {
-        if (prev != null) {
-            prev.nextNode = current.nextNode;
-        } else {
-            head = current.nextNode;
+    public MyLinkedList<E> elementExist(MyLinkedList<E> list){
+        for (int i = 0; i < IndexList.size; i++) {
+            if(IndexList.getElement(i).ListName.equalsIgnoreCase(list.ListName) 
+                    && IndexList.getElement(i).dataType.equalsIgnoreCase(list.dataType)){
+                return IndexList.getElement(i);
+            }
         }
-    }
-        
-    }
-        
-        
-    
-       public void clear(){
-       head=null;
-     //  UserActivity.add(new UserActivity("clear",null,"User succesfully clear all the data",date));
-  
-    }
-
-    
-    
-    public void display(){
-        Node current = head;
-        System.out.println("\nDisplay all data");
-        System.out.println("+---------------+--------------+---------------+");
-        System.out.println("|     INDEX     |     TYPE     |     VALUE     |");
-        System.out.println("+---------------+--------------+---------------+");
-         
-        while(current!=null){
-        System.out.printf(  "|%15s|%15s|%15s", current.index , current.type,current.value );
-            System.out.println();
-        current=current.nextNode;
-        }
-        System.out.println("+---------------+--------------+---------------+");
-        
-          
-        
-    }
-    public void userActivityDisplay(){
-        Node current =head;
-        while(current!=null){
-            System.out.println(current.data);
-            current=current.nextNode;
-        }
+        return null;
     }
     
-   
-    
-    
-    
-    
-    
-        
-    }
-    
-    
-    
-    
-
-=======
-package Database_Project;
-import java.util.LinkedList;
-
-public class Database<E>{
-   LinkedList userData = new LinkedList();
- 
-    
-    Node<E> head;
-    Node<E> tail;
-    
-    public void storeData(String index,Node<E> type , Node<E> value){
-       Node<E> newNode = new Node(index,type,value);
-       userData.add(newNode);
-        System.out.println("aaa");
-       
-        
-    }
-    
-    
-    
-    
+    public void clear(){
+        IndexList.clear();
+    }   
 }
-//>>>>>>> main
+
