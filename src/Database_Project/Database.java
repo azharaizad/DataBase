@@ -1,17 +1,26 @@
 package Database_Project;
+import javax.swing.JFrame;
+//import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextPane;
+import javax.swing.table.DefaultTableModel;
 
-public class Database<E>{
+public class Database<E> extends JFrame{
     MyLinkedList<MyLinkedList<E>> IndexList;
     MyLinkedList<UserActivity> listUserActivity;
+    JTextArea textArea;
+    JTextPane txtPane;
     
     public Database(){
          IndexList = new MyLinkedList<>("MyLinkedList");
          IndexList.ListName = "IndexList";
          listUserActivity = new MyLinkedList<>("UserActivity");
          listUserActivity.ListName = "List of UserActivity";
+         
     }
     
-  
     public void insert(MyLinkedList<E> Index, E element){
         
         if(elementExist(Index)!=null){
@@ -28,16 +37,30 @@ public class Database<E>{
     }
     
     public void insertMany(MyLinkedList<E> Index, E[]element){
+        textArea = new JTextArea();
+        
         if(elementExist(Index)!=null){
             IndexList.getNode(elementExist(Index)).element.addMany(element);
-            listUserActivity.add(new UserActivity("Insert element to "+Index.toString(),null,"Success"));
+            for (int i = 0; i < element.length; i++) {
+                textArea.append(element[i].toString());
+                if(i<element.length-1){
+                    textArea.append(", ");
+                }
+            }
+            listUserActivity.add(new UserActivity("Insert element to "+Index.toString(),textArea.getText(),"Success"));
         }
         else{
             IndexList.add(Index);
-            listUserActivity.add(new UserActivity("Insert new index which is "+Index.toString(),null,"Success"));
+            for (int i = 0; i < element.length; i++) {
+                textArea.append(element[i].toString());
+                if(i<element.length-1){
+                    textArea.append(", ");
+                }
+            }
+            listUserActivity.add(new UserActivity("Insert new index which is "+Index.toString(),textArea.getText(),"Success"));
             
             IndexList.getNode(Index).element.addMany(element);
-            listUserActivity.add(new UserActivity("Insert element to "+Index.toString(),null,"Success"));
+            listUserActivity.add(new UserActivity("Insert element to "+Index.toString(),textArea.getText(),"Success"));
         }  
     }
     
@@ -58,7 +81,7 @@ public class Database<E>{
             listUserActivity.add(new UserActivity("Delete index "+Index.toString(),null,"Fail. Index doesn't exist"));
         }
     }
-    
+
     public void deleteIndex(MyLinkedList<E> Index){
         if(elementExist(Index)!=null){
             IndexList.remove(elementExist(Index));
@@ -71,46 +94,92 @@ public class Database<E>{
     }
 
     public void get(MyLinkedList<E> Index, E element){
+        getContentPane().removeAll();
+        textArea = new JTextArea();
         if(IndexList.elementExist(Index)){
-            //display the whole element in the specific index
             System.out.print("Index: "+Index.toString()+" > Value: ");
-            IndexList.getNode(Index).element.displayInLinkedList();
+            textArea.append("Index: "+Index.toString()+" > Value: ");
+            
+            for (int i = 0; i < IndexList.size; i++) {
+                textArea.append(IndexList.getElement(i).displayInLinkedList());
+            }
+            
             listUserActivity.add(new UserActivity("Get Index "+IndexList.toString(),null,"Success"));
+            
             if(element!=null){
                 if(IndexList.getNode(Index).element.elementExist(element)){
+                    textArea.append("\nIndex: "+Index.toString()+" > Value: "+IndexList.getNode(Index).element.getNode(element).element);
                     System.out.println("Index: "+Index.toString()+" > Value: "+IndexList.getNode(Index).element.getNode(element).element);
                     listUserActivity.add(new UserActivity("Get data from "+IndexList.toString(),element.toString(),"Success"));
                 }
                 else{
+                    textArea.append("Element not found");
                     System.out.println("Element not found");
                     listUserActivity.add(new UserActivity("Get data from "+IndexList.toString(),element.toString(),"Fail. Element doesn't exist."));
                 }  
             }
         }
         else{
+            textArea.append("Index not found");
             System.out.println("Index not found");
             listUserActivity.add(new UserActivity("Get Index "+IndexList.toString(),null,"Fail. Index doesn't exist"));
         }
+        //getContentPane().removeAll();
+        txtPane = new JTextPane();
+        txtPane.setEditable(false);
+        txtPane.setText(textArea.getText());
+        
+        // Create a JFrame to display the JTable
+        JFrame frame = new JFrame("Display all data");
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.getContentPane().add(txtPane);
+        frame.setSize(500, 100);
+        frame.setVisible(true);
     }
     
-    public void display(){
-            System.out.println("Display all data");
-            //System.out.println("+---------------+--------------+---------------+");
-            System.out.printf("%-13s %-13s %-13s%n","INDEX","TYPE","VALUE");
-            //System.out.println("+---------------+--------------+---------------+");
-        
+    public void display() {
+        System.out.println("Display all data");
+
+        // Create a JTable for displaying data
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.addColumn("INDEX");
+        tableModel.addColumn("TYPE");
+        tableModel.addColumn("VALUE");
+
         for (int i = 0; i < IndexList.size; i++) {
-            System.out.printf("%-13s %-13s %1s",IndexList.getElement(i).ListName,
-                    IndexList.getElement(i).dataType,"");
-            IndexList.getElement(i).displayInLinkedList();
-            System.out.println();
+            tableModel.addRow(new Object[]{
+                    IndexList.getElement(i).ListName,
+                    IndexList.getElement(i).dataType,
+                    IndexList.getElement(i).displayInLinkedList()
+                    });
         }
+        getContentPane().removeAll();
+        JTable jTable = new JTable(tableModel);
+        JScrollPane jScrollPane = new JScrollPane(jTable);
+        // Create a JFrame to display the JTable
+        JFrame frame = new JFrame("Display all data");
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.getContentPane().add(jScrollPane);
+        frame.setSize(700, 300);
+        frame.setVisible(true);
     }
     
     public void viewHistory(){
+        textArea = new JTextArea();
+        
         for (int i = 0; i < listUserActivity.size; i++) {
-            listUserActivity.getElement(i).display();
+            textArea.append(listUserActivity.getElement(i).display());
         }
+        txtPane = new JTextPane();
+        txtPane.setEditable(false);
+        txtPane.setText(textArea.getText());
+        
+        // Create a JFrame to display the JTable
+        JFrame frame = new JFrame("Display all history");
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.getContentPane().add(txtPane);
+        frame.setSize(700, 500);
+        frame.setVisible(true);
     }
     
     public MyLinkedList<E> ReturnIndexElement(String indexName){
@@ -118,6 +187,7 @@ public class Database<E>{
             if(IndexList.getElement(i).ListName.equalsIgnoreCase(indexName))
                 return IndexList.getElement(i);
         }
+        
         return null;
     }
     

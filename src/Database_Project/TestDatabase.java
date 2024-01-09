@@ -165,7 +165,6 @@ public class TestDatabase{
                     
                     System.out.println("Enter data:");
                     
-                    
                     String dataType = db.ReturnIndexElement(indexName).dataType;
                     
                     if(dataType.equalsIgnoreCase("String")){
