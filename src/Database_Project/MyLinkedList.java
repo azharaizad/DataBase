@@ -1,7 +1,10 @@
 
 package Database_Project;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
 
-public class MyLinkedList<E>{
+public class MyLinkedList<E> extends javax.swing.JFrame{
     
     Node<E> head,tail;
     int size;
@@ -269,25 +272,26 @@ public class MyLinkedList<E>{
         return null;
     }
     
-    // Method to display all data in the linked list
-    public void displayInLinkedList() {
+    public String displayInLinkedList() {
         Node<E> currentNode = head;
-        System.out.print("{");
+        
+        // Create a JTextArea to display the linked list elements
+        JTextArea textArea = new JTextArea();
+        for (int i = 0; i < size; i++) {
+            
+            textArea.append((String)currentNode.element);
+            // Check if it's the last element
+            if (currentNode.next != null) {
+                textArea.append(", ");
+            }
 
-            for (int i = 0; i < size; i++) {
-                System.out.print(currentNode.element);
-
-                // Check if it's the last element
-                if (currentNode.next != null) {
-                    System.out.print(", ");
-                }
             currentNode = currentNode.next;
         }
-        System.out.println("}");
+        return textArea.getText();
     }
+    
     @Override
     public String toString() {
         return ListName;
     }
-    
 }
