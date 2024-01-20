@@ -7,6 +7,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 
 public class UserActivity extends JFrame{
+    //declare variable
     private String typeActivity;
     private String data;
     private String status;
@@ -14,6 +15,7 @@ public class UserActivity extends JFrame{
     JTextArea textArea;
     JTextPane txtPane;
     
+    //constructor
     public UserActivity(String typeActivity, String data, String status){
         this.typeActivity = typeActivity;
         this.data = data;
@@ -21,6 +23,7 @@ public class UserActivity extends JFrame{
         dateActivity = new Date();
     }
     
+    //method to display
     public String display(){
         textArea = new JTextArea();
         
@@ -32,7 +35,7 @@ public class UserActivity extends JFrame{
         
         textArea.append("User Activity: ");
         textArea.append("\nType of Command: " + typeActivity + " ("+dateActivity+")");
-        textArea.append("\nData Inserted: " + data );
+        textArea.append("\nData: " + data );
         textArea.append("\nStatus: "+status+"\n\n");
        
         return textArea.getText();

@@ -1,18 +1,16 @@
 package Database_Project;
-import javax.swing.JFrame;
-//import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextPane;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class Database<E> extends JFrame{
+    //declare variable
     MyLinkedList<MyLinkedList<E>> IndexList;
     MyLinkedList<UserActivity> listUserActivity;
     JTextArea textArea;
     JTextPane txtPane;
+    JScrollPane scrollPane;
     
+    //constructor
     public Database(){
          IndexList = new MyLinkedList<>("MyLinkedList");
          IndexList.ListName = "IndexList";
@@ -21,6 +19,7 @@ public class Database<E> extends JFrame{
          
     }
     
+    //method to insert data
     public void insert(MyLinkedList<E> Index, E element){
         
         if(elementExist(Index)!=null){
@@ -36,6 +35,7 @@ public class Database<E> extends JFrame{
         }        
     }
     
+    //method to insert many data
     public void insertMany(MyLinkedList<E> Index, E[]element){
         textArea = new JTextArea();
         
@@ -64,6 +64,7 @@ public class Database<E> extends JFrame{
         }  
     }
     
+    //method to delete data
     public void deleteData(MyLinkedList<E> Index, E element){
         
         if(elementExist(Index)!=null){
@@ -82,6 +83,7 @@ public class Database<E> extends JFrame{
         }
     }
 
+    //method to delete the whole index
     public void deleteIndex(MyLinkedList<E> Index){
         if(elementExist(Index)!=null){
             IndexList.remove(elementExist(Index));
@@ -93,15 +95,18 @@ public class Database<E> extends JFrame{
         }
     }
 
+    //method to get the data
     public void get(MyLinkedList<E> Index, E element){
+        
         getContentPane().removeAll();
         textArea = new JTextArea();
         if(IndexList.elementExist(Index)){
             System.out.print("Index: "+Index.toString()+" > Value: ");
             textArea.append("Index: "+Index.toString()+" > Value: ");
             
-            for (int i = 0; i < IndexList.size; i++) {
-                textArea.append(IndexList.getElement(i).displayInLinkedList());
+            for (int i = 0; i < Index.size; i++) {
+                System.out.println(Index.displayInLinkedList());
+                textArea.append(Index.displayInLinkedList());
             }
             
             listUserActivity.add(new UserActivity("Get Index "+IndexList.toString(),null,"Success"));
@@ -137,6 +142,7 @@ public class Database<E> extends JFrame{
         frame.setVisible(true);
     }
     
+    //method to display the data
     public void display() {
         System.out.println("Display all data");
 
@@ -164,24 +170,30 @@ public class Database<E> extends JFrame{
         frame.setVisible(true);
     }
     
+    //method to view history
     public void viewHistory(){
         textArea = new JTextArea();
         
         for (int i = 0; i < listUserActivity.size; i++) {
             textArea.append(listUserActivity.getElement(i).display());
         }
+        
         txtPane = new JTextPane();
         txtPane.setEditable(false);
         txtPane.setText(textArea.getText());
         
+        scrollPane = new JScrollPane(txtPane);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        
         // Create a JFrame to display the JTable
         JFrame frame = new JFrame("Display all history");
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        frame.getContentPane().add(txtPane);
+        frame.getContentPane().add(scrollPane);
         frame.setSize(700, 500);
         frame.setVisible(true);
     }
     
+    //method to find the element (return linkedlist)
     public MyLinkedList<E> ReturnIndexElement(String indexName){
         for (int i = 0; i < IndexList.size; i++) {
             if(IndexList.getElement(i).ListName.equalsIgnoreCase(indexName))
@@ -191,6 +203,7 @@ public class Database<E> extends JFrame{
         return null;
     }
     
+    //method to check element existence
     public MyLinkedList<E> elementExist(MyLinkedList<E> list){
         for (int i = 0; i < IndexList.size; i++) {
             if(IndexList.getElement(i).ListName.equalsIgnoreCase(list.ListName) 
@@ -201,6 +214,7 @@ public class Database<E> extends JFrame{
         return null;
     }
     
+    //method to clear all
     public void clear(){
         IndexList.clear();
     }   

@@ -7,11 +7,9 @@ package Database_Project;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
@@ -20,15 +18,14 @@ import javax.swing.JTextPane;
  * @author aizad
  */
 public class Jframe extends javax.swing.JFrame implements ActionListener{
-    
+    //declare variable
     JTextPane Welcome,DataTypePane,NumberofDataPane;
     JTextField Command,txtNumberofData,txtInsert,txtIndexName,txtDataType,txtData;
     JButton Enter,Back,Submit;
     Database db;
-    JLabel Message,InsertLabel,IndexNameLabel,DataLabel;
+    JLabel Message,InsertLabel,IndexNameLabel,DataLabel,Title;
     
-    //MainPage
-    
+    //Constructor
     public Jframe(){
         super("Welcome to G26 Database!!");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,7 +36,7 @@ public class Jframe extends javax.swing.JFrame implements ActionListener{
         MainLayout();
     }
             
-    
+    //Main Layout
     public void MainLayout(){
         
         getContentPane().removeAll();
@@ -98,7 +95,10 @@ public class Jframe extends javax.swing.JFrame implements ActionListener{
         repaint();
     }
     
+    //Insert
     public void InsertLayout(){
+        
+        Title = new JLabel("Insert the Data:");
         
         DataTypePane = new JTextPane();
         DataTypePane.setEditable(false);
@@ -120,12 +120,10 @@ public class Jframe extends javax.swing.JFrame implements ActionListener{
                                  """);
         txtNumberofData = new JTextField(10);
         
-        InsertLabel = new JLabel("Value(Split by Coma):");
-       // InsertLabel.setText("");
+        InsertLabel = new JLabel("Value(Split by Coma:a,b,c):");
         txtInsert = new JTextField(10);
         
         IndexNameLabel = new JLabel("Enter Index Name:");
-        //IndexNameLabel.setText("Index Name");
         txtIndexName = new JTextField(10);
         
         Back = new JButton("Back");
@@ -134,21 +132,24 @@ public class Jframe extends javax.swing.JFrame implements ActionListener{
         getContentPane().removeAll();
         setLayout(null);
         //x,y,width,weight
-        DataTypePane.setBounds(10, 10, 200, 100);
-        txtDataType.setBounds(220, 10, 150, 20);
-    
-        NumberofDataPane.setBounds(10, 130, 200, 80);
-        txtNumberofData.setBounds(220, 130, 150, 20);
-    
-        InsertLabel.setBounds(10, 220, 150, 20);
-        txtInsert.setBounds(220, 220, 150, 20);
-    
-        IndexNameLabel.setBounds(10, 260, 150, 20);
-        txtIndexName.setBounds(220, 260, 150, 20);
+        Title.setBounds(10, 10, 150, 20);
         
-        Submit.setBounds(10, 300, 80, 30);
-        Back.setBounds(100, 300, 80, 30);
+        DataTypePane.setBounds(10, 50, 200, 90);
+        txtDataType.setBounds(220, 50, 150, 20);
     
+        NumberofDataPane.setBounds(10, 150, 150, 60);
+        txtNumberofData.setBounds(220, 150, 150, 20);
+    
+        InsertLabel.setBounds(10, 250, 200, 20);
+        txtInsert.setBounds(220, 250, 150, 20);
+    
+        IndexNameLabel.setBounds(10, 300, 150, 20);
+        txtIndexName.setBounds(220, 300, 150, 20);
+        
+        Submit.setBounds(10, 340, 80, 30);
+        Back.setBounds(100, 340, 80, 30);
+        
+        add(Title);
         add(DataTypePane);
         add(txtDataType);
         add(NumberofDataPane);
@@ -252,14 +253,15 @@ public class Jframe extends javax.swing.JFrame implements ActionListener{
         repaint();
     }
     
+    //Delete
     public void DeleteLayout(){
         
-        db.display();
+        Title = new JLabel("Delete the data");
         
         IndexNameLabel = new JLabel("Enter your Index Name: ");
         txtIndexName = new JTextField(10);
         
-        DataLabel = new JLabel("Enter your Data");
+        DataLabel = new JLabel("Enter your Data:");
         txtData = new JTextField(10);
         
         Back = new JButton("Back");
@@ -268,15 +270,18 @@ public class Jframe extends javax.swing.JFrame implements ActionListener{
         getContentPane().removeAll();
         setLayout(null);
         
-        IndexNameLabel.setBounds(10, 10, 150, 20);
-        txtIndexName.setBounds(180, 10, 150, 20);
+        Title.setBounds(10, 10, 150, 20);
+        
+        IndexNameLabel.setBounds(10, 60, 150, 20);
+        txtIndexName.setBounds(180, 60, 150, 20);
     
-        DataLabel.setBounds(10, 60, 150, 20);
-        txtData.setBounds(180, 60, 150, 20);
+        DataLabel.setBounds(10, 110, 150, 20);
+        txtData.setBounds(180, 110, 150, 20);
         
-        Submit.setBounds(10, 300, 80, 30);
-        Back.setBounds(100, 300, 80, 30);
+        Submit.setBounds(10, 160, 80, 30);
+        Back.setBounds(100, 160, 80, 30);
         
+        add(Title);
         add(IndexNameLabel);
         add(txtIndexName);
         add(DataLabel);
@@ -313,14 +318,15 @@ public class Jframe extends javax.swing.JFrame implements ActionListener{
        repaint();
     }
     
+    //Get
     public void GetLayout(){
         
-        db.display();
+        Title = new JLabel("Get the data");
         
         IndexNameLabel = new JLabel("Enter your Index Name: ");
         txtIndexName = new JTextField(10);
         
-        DataLabel = new JLabel("Enter your Data");
+        DataLabel = new JLabel("Enter your Data:");
         txtData = new JTextField(10);
         
         Back = new JButton("Back");
@@ -329,17 +335,20 @@ public class Jframe extends javax.swing.JFrame implements ActionListener{
         getContentPane().removeAll();
         setLayout(null);
         
-        IndexNameLabel.setBounds(10, 10, 150, 20);
-        txtIndexName.setBounds(180, 10, 150, 20);
-    
-        DataLabel.setBounds(10, 60, 150, 20);
-        txtData.setBounds(180, 60, 150, 20);
+        Title.setBounds(10, 10, 150, 20);
         
-        Submit.setBounds(10, 300, 80, 30);
-        Back.setBounds(100, 300, 80, 30);
+        IndexNameLabel.setBounds(10, 50, 150, 20);
+        txtIndexName.setBounds(180, 50, 150, 20);
+    
+        DataLabel.setBounds(10, 110, 150, 20);
+        txtData.setBounds(180, 110, 150, 20);
+        
+        Submit.setBounds(10, 160, 80, 30);
+        Back.setBounds(100, 160, 80, 30);
          
         getContentPane().removeAll();
         
+        add(Title);
         add(IndexNameLabel);
         add(txtIndexName);
         add(DataLabel);
@@ -371,6 +380,7 @@ public class Jframe extends javax.swing.JFrame implements ActionListener{
         repaint();
     }
     
+    //Main class
     public static void main(String[] args) {
         new Jframe();
     }

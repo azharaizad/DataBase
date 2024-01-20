@@ -11,10 +11,12 @@ package Database_Project;
  * @param <E>
  */
 public class Node<E> {
+    
+    //declare variable
     E element;
     Node<E> next;
-    //String dataType;
-
+    
+    //constructor
     public Node(E element) {
         this.element = element;
     }
