@@ -104,10 +104,9 @@ public class Database<E> extends JFrame{
             System.out.print("Index: "+Index.toString()+" > Value: ");
             textArea.append("Index: "+Index.toString()+" > Value: ");
             
-            for (int i = 0; i < Index.size; i++) {
-                System.out.println(Index.displayInLinkedList());
-                textArea.append(Index.displayInLinkedList());
-            }
+            System.out.println(Index.displayInLinkedList());
+            textArea.append(Index.displayInLinkedList());
+            
             
             listUserActivity.add(new UserActivity("Get Index "+IndexList.toString(),null,"Success"));
             
