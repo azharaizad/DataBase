@@ -1,32 +1,32 @@
 
 package Database_Project;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
 public class MyLinkedList<E> extends javax.swing.JFrame{
     
+    //declare variable
     Node<E> head,tail;
     int size;
     String ListName;
     String dataType;
     
+    //contructor
     public MyLinkedList(String dataType) {
         head = null;
         size = 0;
         //this.ListName = ListName;
         this.dataType = dataType;
-    }
-     
+    } 
     public MyLinkedList (E element, String dataType){
         add(element);
         //this.ListName = ListName;
         this.dataType = dataType;
     }
-    
     public MyLinkedList (E[] element){
         addMany(element);
     }
+    
+    
     // Method to check empty
     public boolean isEmpty(){
         if(size==0)
@@ -41,7 +41,8 @@ public class MyLinkedList<E> extends javax.swing.JFrame{
         tail = head;
         size = 0;
     }
-    // Method to add data to the linked list
+    
+    // Method to add single data
     public void add(E element){
         Node<E> newNode = new Node(element);
         
@@ -61,12 +62,14 @@ public class MyLinkedList<E> extends javax.swing.JFrame{
         size++;
     }
     
+    // Method to add many data
     public void addMany(E[] element){
         for (int i = 0; i < element.length; i++) {
             add(element[i]);
         }
     }
     
+    // Method to add first data
     public void addFirst(E element){
         Node<E> newNode = new Node(element);
         
@@ -81,6 +84,7 @@ public class MyLinkedList<E> extends javax.swing.JFrame{
         size++;    
     }
     
+    // Method to add data at any index
     public void addIndex(E element, int index){
         Node<E> newNode = new Node(element);
         
@@ -100,7 +104,7 @@ public class MyLinkedList<E> extends javax.swing.JFrame{
         size++;
     }
     
-    // Method to remove data to the linked list
+    // Method to remove last data
     public E removeLast(){
         
         if(head==null){
@@ -129,6 +133,7 @@ public class MyLinkedList<E> extends javax.swing.JFrame{
         }  
     }
     
+    // Method to remove first data
     public E removeFirst(){
         if(head==null){
             System.out.println("Nothing to remove");
@@ -142,6 +147,7 @@ public class MyLinkedList<E> extends javax.swing.JFrame{
         }
     }
     
+    // Method to remove specific data
     public E remove(E element) {
     if (head == null) {
         System.out.println("Nothing to remove");
@@ -182,7 +188,7 @@ public class MyLinkedList<E> extends javax.swing.JFrame{
     }
 }
 
-    
+    // Method to remove data at any index
     public E removeIndex(int index){
         if(head==null || index<0 || index>=size){
             System.out.println("Nothing to remove");
@@ -210,7 +216,7 @@ public class MyLinkedList<E> extends javax.swing.JFrame{
         }
     }
     
-    // Method to retrieve data from the linked list
+    // Method to get data at any index
     public E getElement(int index){
         if(index < 0 || index >= size){
             System.out.println("Index out of bound");
@@ -229,7 +235,7 @@ public class MyLinkedList<E> extends javax.swing.JFrame{
         } 
     }
     
-    //method to retrieve index of linkedList from given data
+    // Method to get index of any data
     public int getindexOf(E element){
         Node<E> currentNode = head;
         int index=0;
@@ -246,7 +252,7 @@ public class MyLinkedList<E> extends javax.swing.JFrame{
         return -1;
     }
     
-    // Method to check element existence
+    // Method to check element existence (return boolean)
     public boolean elementExist(E element){
         Node<E> currentNode = head;
         
@@ -259,7 +265,7 @@ public class MyLinkedList<E> extends javax.swing.JFrame{
         return false;
     }
     
-    // Method to get certain node
+    // Method to get certain node (return node)
     public Node<E> getNode(E element){
         Node<E> currentNode = head;
         
@@ -272,13 +278,13 @@ public class MyLinkedList<E> extends javax.swing.JFrame{
         return null;
     }
     
+    // Method to display linkedlist in Jframe (return String)
     public String displayInLinkedList() {
         Node<E> currentNode = head;
         
         // Create a JTextArea to display the linked list elements
         JTextArea textArea = new JTextArea();
         for (int i = 0; i < size; i++) {
-            
             textArea.append((String)currentNode.element);
             // Check if it's the last element
             if (currentNode.next != null) {
@@ -288,6 +294,21 @@ public class MyLinkedList<E> extends javax.swing.JFrame{
             currentNode = currentNode.next;
         }
         return textArea.getText();
+    }
+    
+    // Method to traverse all data
+    public void traverseNode(){
+        Node<E> currentNode = head;
+        System.out.print("{");
+        for (int i = 0; i < size; i++) {
+            System.out.print((String)currentNode.element);
+            // Check if it's the last element
+            if (currentNode.next != null) {
+                System.out.print(", ");
+            }
+            currentNode = currentNode.next;
+        }
+        System.out.print("}\n");
     }
     
     @Override
